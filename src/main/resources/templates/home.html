@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bosnet ScrollLib Recruitment Test</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container my-2">
+		<h1>People List</h1>
+		
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>
+						<a th:href="@{'/halaman/' + ${currentPage} + '?colToBeSorted=id&sortAscOrDesc=' + ${reverseSortDir}}">people_id</a>
+					</th>
+					<th>
+						<a th:href="@{'/halaman/' + ${currentPage} + '?colToBeSorted=fullName&sortAscOrDesc=' + ${reverseSortDir}}">full_name</a>
+					</th>
+					<th>
+						<a th:href="@{'/halaman/' + ${currentPage} + '?colToBeSorted=birthday&sortAscOrDesc=' + ${reverseSortDir}}">birthday</a>
+					</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="people : ${listOfPeople}">
+					<td th:text="${people.id}"></td>
+					<td th:text="${people.fullName}"></td>
+					<td th:text="${people.birthday}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div th:if="${totalHalaman > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">
+					Total baris = [[${totalItems}]]
+				</div>
+				
+				<div class="col-sm-1">
+					<!-- span th:each="pageIdx: ${#numbers.sequence(1, totalHalaman)}">
+						<a th:if="${currentPage != pageIdx}" th:href="@{'/halaman/' + ${pageIdx} + '?colToBeSorted=' + ${sortCol} + '&sortAscOrDesc=' + ${sortDirection}}">[[${pageIdx}]]</a>
+						<span th:unless="${currentPage != pageIdx}">[[${pageIdx}]]</span>
+					</span -->
+					<a th:if="${currentPage > 1}" th:href="@{'/halaman/' + 1 + '?colToBeSorted=' + ${sortCol} + '&sortAscOrDesc=' + ${sortDirection}}">First</a>
+					<span th:unless="${currentPage > 1}">First</span>
+				</div>
+				
+				<div class="col-sm-1">
+					<a th:if="${currentPage > 1}" th:href="@{'/halaman/' + ${currentPage - 1} + '?colToBeSorted=' + ${sortCol} + '&sortAscOrDesc=' + ${sortDirection}}">Prev</a>
+				</div>
+				<span th:unless="${currentPage > 1}">Prev</span>
+				
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalHalaman}" th:href="@{'/halaman/' + ${currentPage + 1} + '?colToBeSorted=' + ${sortCol} + '&sortAscOrDesc=' + ${sortDirection}}">Next</a>
+					<span th:unless="${currentPage < totalHalaman}">Next</span>
+				</div>
+				
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalHalaman}" th:href="@{'/halaman/' + ${totalHalaman} + '?colToBeSorted=' + ${sortCol} + '&sortAscOrDesc=' + ${sortDirection}}">Last</a>
+					<span th:unless="${currentPage < totalHalaman}">Last</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
