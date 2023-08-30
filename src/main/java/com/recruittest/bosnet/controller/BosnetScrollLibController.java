@@ -1,5 +1,6 @@
 package com.recruittest.bosnet.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,10 @@ public class BosnetScrollLibController {
 		model.addAttribute("sortDirection", sortDir);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		model.addAttribute("listOfPeople", pplList);
+		
+		LocalDate tanggal = LocalDate.now();
+		String tanggalSekarang = tanggal.toString();
+		model.addAttribute("tanggalHariIni", tanggalSekarang);
 		
 		return "home";
 	}
